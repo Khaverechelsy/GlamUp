@@ -1,5 +1,6 @@
 package com.example.glamup.screens.login
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -10,6 +11,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -18,6 +20,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.compose.ui.geometry.Offset
+
+import com.example.glamup.navigation.ROUTE_HOME
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
@@ -36,13 +41,22 @@ fun LoginScreen(nav: NavHostController) {
         snackbarHost = { SnackbarHost(snackbar) },
         topBar = { TopAppBar(title = { Text("Welcome back") }) }
     ) { padding ->
-        Column(modifier = Modifier.fillMaxSize(),
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .background(
+                Brush.linearGradient(
+                    colors = listOf(Color(0xFFFFF0F0), Color(0xFFFFB6C1)),
+                    start = Offset(0f, 0f),
+                    end = Offset.Infinite
+                )
+            ),
+
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Register Here",
-                fontSize = 40.sp,
+                text = "Login Here",
+                fontSize = 30.sp,
                 fontFamily = FontFamily.SansSerif,
                 fontStyle = FontStyle.Normal,
                 color = Color.Red,
@@ -60,7 +74,7 @@ fun LoginScreen(nav: NavHostController) {
                 placeholder = { Text("Please enter email") },
                 leadingIcon = { Icon(Icons.Default.Email, contentDescription = "Email icon") },
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(15.dp)
             )
 
             Spacer(Modifier.height(10.dp))
@@ -78,7 +92,7 @@ fun LoginScreen(nav: NavHostController) {
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(15.dp)
             )
 
             Spacer(Modifier.height(16.dp))
@@ -99,7 +113,7 @@ fun LoginScreen(nav: NavHostController) {
                             .addOnCompleteListener { task ->
                                 loading = false
                                 if (task.isSuccessful) {
-                                    nav.navigate("home")
+                                    nav.navigate(ROUTE_HOME)
                                 } else {
                                     coroutineScope.launch {
                                         snackbar.showSnackbar(

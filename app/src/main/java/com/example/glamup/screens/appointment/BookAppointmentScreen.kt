@@ -1,14 +1,19 @@
 package com.example.glamup.screens.appointment
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.glamup.navigation.ROUTE_APPOINTMENT
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
@@ -37,6 +42,15 @@ fun BookAppointmentScreen(nav: NavHostController) {
                 .fillMaxSize()
                 .padding(padding)
                 .padding(16.dp)
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(Color(0xFFFFE6E6), Color(0xFFFF6B6B))
+                    )
+                ),
+
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+
         ) {
             OutlinedTextField(
                 value = service,
@@ -85,8 +99,6 @@ fun BookAppointmentScreen(nav: NavHostController) {
             )
 
 
-
-
             Spacer(Modifier.height(16.dp))
 
             if (loading) {
@@ -100,30 +112,35 @@ fun BookAppointmentScreen(nav: NavHostController) {
                             }
                             return@Button
                         }
-                        loading = true
+
                         val appt = hashMapOf(
                             "service" to service,
                             "date" to date,
                             "time" to time,
                             "userId" to userId
                         )
-                        db.collection("appointments").add(appt).addOnCompleteListener { task ->
-                            loading = false
-                            if (task.isSuccessful) {
+
+                        // 🚀 Navigate instantly (so user sees the Appointments screen immediately)
+                        nav.navigate(ROUTE_APPOINTMENT)
+
+                        // Save appointment in Firestore in the background
+                        db.collection("appointments")
+                            .add(appt)
+                            .addOnSuccessListener {
                                 coroutineScope.launch {
                                     snackbarHostState.showSnackbar("Appointment received ✔")
                                 }
-                                nav.navigate("appointments")
-                            } else {
+                            }
+                            .addOnFailureListener { e ->
                                 coroutineScope.launch {
                                     snackbarHostState.showSnackbar(
-                                        task.exception?.localizedMessage ?: "Failed to book"
+                                        e.localizedMessage ?: "Failed to book"
                                     )
                                 }
                             }
-                        }
                     },
-                    modifier = Modifier.fillMaxWidth(),
+
+                modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(20.dp)
                 ) {
                     Text("Confirm Booking")

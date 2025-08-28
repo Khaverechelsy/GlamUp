@@ -276,7 +276,7 @@ fun AppointmentCard(
 
                         Button(
                             onClick = { showUpdateDialog = false },
-                            colors = ButtonDefaults.buttonColors(containerColor = Color.Black)
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.Cyan)
                         ) { Text("Back", color = Color.Black) }
                     }
                 }

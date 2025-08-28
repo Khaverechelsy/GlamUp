@@ -10,10 +10,10 @@ data class Appointment(
     val userId: String = ""
 )
 
-private fun QueryDocumentSnapshot.toAppointment(): Appointment = Appointment(
-    id = id,
-    service = getString("service") ?: "",
-    date = getString("date") ?: "",
-    time = getString("time") ?: "",
-    userId = getString("userId") ?: ""
-)
+//private fun QueryDocumentSnapshot.toAppointment(): Appointment = Appointment(
+//    id = id,
+//    service = getString("service") ?: "",
+//    date = getString("date") ?: "",
+//    time = getString("time") ?: "",
+//    userId = getString("userId") ?: ""
+//)

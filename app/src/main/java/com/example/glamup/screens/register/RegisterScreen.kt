@@ -1,5 +1,6 @@
 package com.example.glamup.screens.register
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -20,6 +21,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Brush
+import com.example.glamup.navigation.ROUTE_HOME
+import com.example.glamup.navigation.ROUTE_LOGIN
 
 import kotlinx.coroutines.launch
 
@@ -40,16 +44,23 @@ fun RegisterScreen(nav: NavHostController) {
     Scaffold(
         snackbarHost = { SnackbarHost(snackbar) },
         topBar = {
-            TopAppBar(title = { Text("Create account") })
+            TopAppBar(title = { Text("Welcome") })
         }
     ) { padding ->
-        Column(modifier = Modifier.fillMaxSize(),
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(Color(0xFFFFE6E6), Color(0xFFFFB3B3))
+                )
+            ),
+
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
                 text = "Register Here",
-                fontSize = 40.sp,
+                fontSize = 30.sp,
                 fontFamily = FontFamily.SansSerif,
                 fontStyle = FontStyle.Normal,
                 color = Color.Red,
@@ -141,7 +152,7 @@ fun RegisterScreen(nav: NavHostController) {
                                 .addOnCompleteListener { task ->
                                     loading = false
                                     if (task.isSuccessful) {
-                                        nav.navigate("home")
+                                        nav.navigate(ROUTE_LOGIN)
                                     } else {
                                         coroutineScope.launch {
                                             snackbar.showSnackbar(
@@ -161,8 +172,8 @@ fun RegisterScreen(nav: NavHostController) {
 
                 Spacer(Modifier.height(8.dp))
 
-                TextButton(onClick = { nav.navigate("login") }) {
-                    Text("Already have an account? Login", color = Color.White)
+                TextButton(onClick = { nav.navigate(ROUTE_LOGIN) }) {
+                    Text("Already have an account? Login", color = Color.Blue)
                 }
             }
         }

@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import androidx.navigation.NavHostController
+import com.example.glamup.navigation.ROUTE_APPOINTMENT
+import com.example.glamup.navigation.ROUTE_BOOK
 
 @Composable
 fun HomeScreen(nav: NavHostController) {
@@ -33,9 +35,9 @@ fun HomeScreen(nav: NavHostController) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Book Appointment Button
+
         Button(
-            onClick = { nav.navigate("book") },
+            onClick = { nav.navigate(ROUTE_BOOK) },
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6B6B)),
@@ -48,9 +50,9 @@ fun HomeScreen(nav: NavHostController) {
 
         Spacer(Modifier.height(16.dp))
 
-        // View Appointments Button
+
         Button(
-            onClick = { nav.navigate("appointments") },
+            onClick = { nav.navigate(ROUTE_APPOINTMENT) },
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF8C8C)),
@@ -63,11 +65,11 @@ fun HomeScreen(nav: NavHostController) {
 
         Spacer(Modifier.height(16.dp))
 
-        // Call Salon Button
+
         Button(
             onClick = {
                 val intent = Intent(Intent.ACTION_DIAL).apply {
-                    data = "tel:+254700000000".toUri()
+                    data = "tel:+254719890401".toUri()
                 }
                 nav.context.startActivity(intent)
             },
