@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "915159284129",
+    "project_id": "glamup-fd6f9",
+    "storage_bucket": "glamup-fd6f9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915159284129:android:a51a4ec86653a72e6e33e0",
+        "android_client_info": {
+          "package_name": "com.example.glamup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeND10Y5WKoNs2okOgEp2lqS9jveY-lJQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
